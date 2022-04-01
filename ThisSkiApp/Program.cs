@@ -75,10 +75,10 @@ namespace ColoradoSKI
 
 
 
-       public static void Main(string[] args)
-            {
-                InitializeParks();
-                InitializeResorts();
+        public static void Main(string[] args)
+        {
+            InitializeParks();
+            InitializeResorts();
 
             Console.WriteLine("█░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀   ▀█▀ █▀█   ▀█▀ █░█ █▀▀   █▀ █▄▀ █   ▄▀█ █▀█ █▀█");
             Console.WriteLine("▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄   ░█░ █▄█   ░█░ █▀█ ██▄   ▄█ █░█ █   █▀█ █▀▀ █▀▀");
@@ -112,39 +112,56 @@ namespace ColoradoSKI
 
                 foreach (var item in queryLetter)
                 {
+                    Console.WriteLine("*********************");
                     Console.WriteLine(item);
                 }
             }
-                Console.WriteLine("*********************");
-                Console.WriteLine('\n');
-            
-         
+            Console.WriteLine("*********************");
+            Console.WriteLine('\n');
+
+
             //ALPHABETICAL ORDER OF SKI RESORTS
-            var queryAlphabetOrder = from park in parks
+
+            Console.WriteLine("Press 'y' if you would like an alphabetical list of resorts!");
+
+            ConsoleKeyInfo cki = Console.ReadKey();
+
+            if (cki.Key.ToString() == "y")
+
+            //USER PICKED YES FOR ALPHABETICAL LIST
+            {
+                var queryAlphabetOrder = from park in parks
                                          orderby park.ParkName
                                          select park.ParkName;
 
 
-
+                { 
                 Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀ █▀   ▄▀ ▄▀█ █░░ █▀█ █░█ ▄▀█ █▄▄ █▀▀ ▀█▀ █ █▀▀ ▄▀█ █░░ ▀▄");
                 Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░ ▄█   ▀▄ █▀█ █▄▄ █▀▀ █▀█ █▀█ █▄█ ██▄ ░█░ █ █▄▄ █▀█ █▄▄ ▄▀");
                 Console.WriteLine('\n');
                 foreach (var item in queryAlphabetOrder)
-                {
-                    Console.WriteLine(item);
+
+                Console.WriteLine(item);
                 }
 
 
                 Console.WriteLine('\n');
 
-        //ORDER BY increasing vertical distance (feet)
+            }
+            else
+            {
+
+                Console.WriteLine('\n');
+                Console.WriteLine('\n');
+                Console.WriteLine("Oops-Something went wrong: so here's fun facts about how high the resorts go!");
+                //ORDER BY increasing vertical distance (feet)
 
                 var queryDrop = from park in parks
                                 orderby park.Drop, park.ParkName descending
                                 select park;
 
-            Console.WriteLine("█░█ █▀▀ █▀█ ▀█▀ █ █▀▀ ▄▀█ █░░   █▀▄ █▀█ █▀█ █▀█");
-            Console.WriteLine("▀▄▀ ██▄ █▀▄ ░█░ █ █▄▄ █▀█ █▄▄   █▄▀ █▀▄ █▄█ █▀▀");
+                Console.WriteLine("█░█ █▀▀ █▀█ ▀█▀ █ █▀▀ ▄▀█ █░░   █▀▄ █▀█ █▀█ █▀█");
+                Console.WriteLine("▀▄▀ ██▄ █▀▄ ░█░ █ █▄▄ █▀█ █▄▄   █▄▀ █▀▄ █▄█ █▀▀");
                 Console.WriteLine('\n');
                 foreach (var item in queryDrop)
                 {
@@ -152,26 +169,39 @@ namespace ColoradoSKI
                 }
 
 
-                Console.WriteLine('\n');
+            }
+            Console.WriteLine('\n');
 
-                //Here is the first 6 of resorts
-                var querykkkkkkkk = (from park in parks
-                                     select park).Take(6);
+            //Conversion from meters from feet
+            Console.WriteLine("Now we have all these measurements, let's find out the meter conversion!");
+            double meter, feet;
+            Console.WriteLine("Enter feet :");
+            feet = Convert.ToInt32(Console.ReadLine());
+            meter = feet / 3.2808399;
+            Console.WriteLine("Now you're ready for European ski resorts ^_^"+"\nFeet to meter : " + meter);
+            Console.WriteLine("Press enter to continue");
+            Console.ReadKey();
 
-                Console.WriteLine("querykkkkkkkk");
-                foreach (var item in querykkkkkkkk)
-                {
-                    Console.WriteLine(item.ParkName);
-                }
+            //Here is the first 6 of resorts
+            Console.WriteLine('\n');
+            Console.WriteLine('\n');
+            var queryRandom = (from resort in resorts
+                                 select resort).Take(6);
+
+            Console.WriteLine("Here's the top resorts");
+            foreach (var item in queryRandom)
+            {
+                Console.WriteLine(item.ResortCity);
+            }
 
 
 
-                Console.WriteLine('\n');
+            Console.WriteLine('\n');
 
-        //CONNECT RESORT AND PARK CLASSES
-                var queryResortAndCity = from park in parks
-                                         join resort in resorts on park.ResortId equals resort.ResortId
-                                         select new { park.ParkName, resort.ResortCity };
+            //CONNECT RESORT AND PARK CLASSES
+            var queryResortAndCity = from park in parks
+                                     join resort in resorts on park.ResortId equals resort.ResortId
+                                     select new { park.ParkName, resort.ResortCity };
 
 
             Console.WriteLine('\n');
@@ -179,178 +209,178 @@ namespace ColoradoSKI
             Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀   █░░ █▀█ █▀▀ ▄▀█ ▀█▀ █ █▀█ █▄░█ █▀");
             Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░   █▄▄ █▄█ █▄▄ █▀█ ░█░ █ █▄█ █░▀█ ▄█");
 
-                foreach (var item in queryResortAndCity)
-                {
-                    Console.WriteLine(item.ParkName + ":" + item.ResortCity);
-                }
-
-
-
+            foreach (var item in queryResortAndCity)
+            {
+                Console.WriteLine(item.ParkName + ":" + item.ResortCity);
             }
+
+
+
+        }
         ///////LIST OF ALL SKI RESORTS AND THEIR ATTRIBUTES///////
 
         public static void InitializeParks()
+        {
+            parks.Add(new Park
             {
-                parks.Add(new Park
-                {
 
-                    ResortId = 1,
-                    Drop = 2530,
-                    ParkName = "Arapahoe Basin",
+                ResortId = 1,
+                Drop = 2530,
+                ParkName = "Arapahoe Basin",
 
-                });
+            });
 
-                parks.Add(new Park
-                {
-                    ResortId = 2,
-                    Drop = 3635,
-                    ParkName = "Aspen Highlands",
-
-                });
-
-                parks.Add(new Park
-                {
-                    ResortId = 3,
-                    Drop = 3267,
-                    ParkName = "Aspen Mountain",
-                });
-
-                parks.Add(new Park
-                {
-                    ResortId = 4,
-                    Drop = 3340,
-                    ParkName = "Beaver Creek",
-                });
-
-                parks.Add(new Park
-                {
-                    ResortId = 5,
-                    Drop = 3398,
-                    ParkName = "Breckenridge",
-
-                });
-
-                parks.Add(new Park
-                {
-                    ResortId = 6,
-                    Drop = 2030,
-                    ParkName = "Buttermilk",
-
-                });
-                parks.Add(new Park
-                {
-                    ResortId = 7,
-                    Drop = 2738,
-                    ParkName = "Copper Mountain",
-
-                });
-                parks.Add(new Park
-                {
-                    ResortId = 8,
-                    Drop = 2787,
-                    ParkName = "Crested Butte",
-
-                });
-                parks.Add(new Park
-                {
-                    ResortId = 9,
-                    Drop = 600,
-                    ParkName = "Echo Mountain",
-
-                });
-                parks.Add(new Park
-                {
-                    ResortId = 10,
-                    Drop = 1400,
-                    ParkName = "Eldora",
-
-                });
-                parks.Add(new Park
-                {
-                    ResortId = 11,
-                    Drop = 1000,
-                    ParkName = "Granby Ranch",
-
-                });
-
-            }
-
-            public static void InitializeResorts()
+            parks.Add(new Park
             {
-                resorts.Add(new Resort
-                {
-                    ResortId = 1,
-                    ResortCity = "Dillon"
+                ResortId = 2,
+                Drop = 3635,
+                ParkName = "Aspen Highlands",
 
-                });
+            });
 
-                resorts.Add(new Resort
-                {
-                    ResortId = 2,
-                    ResortCity = "Aspen"
+            parks.Add(new Park
+            {
+                ResortId = 3,
+                Drop = 3267,
+                ParkName = "Aspen Mountain",
+            });
 
-                });
+            parks.Add(new Park
+            {
+                ResortId = 4,
+                Drop = 3340,
+                ParkName = "Beaver Creek",
+            });
 
-                resorts.Add(new Resort
-                {
-                    ResortId = 3,
-                    ResortCity = "Aspen"
+            parks.Add(new Park
+            {
+                ResortId = 5,
+                Drop = 3398,
+                ParkName = "Breckenridge",
 
-                });
+            });
 
-                resorts.Add(new Resort
-                {
-                    ResortId = 4,
-                    ResortCity = "Beaver Creek"
+            parks.Add(new Park
+            {
+                ResortId = 6,
+                Drop = 2030,
+                ParkName = "Buttermilk",
 
-                });
+            });
+            parks.Add(new Park
+            {
+                ResortId = 7,
+                Drop = 2738,
+                ParkName = "Copper Mountain",
 
-                resorts.Add(new Resort
-                {
-                    ResortId = 5,
-                    ResortCity = "Breckenridge"
+            });
+            parks.Add(new Park
+            {
+                ResortId = 8,
+                Drop = 2787,
+                ParkName = "Crested Butte",
 
-                });
+            });
+            parks.Add(new Park
+            {
+                ResortId = 9,
+                Drop = 600,
+                ParkName = "Echo Mountain",
 
-                resorts.Add(new Resort
-                {
-                    ResortId = 6,
-                    ResortCity = "Aspen"
+            });
+            parks.Add(new Park
+            {
+                ResortId = 10,
+                Drop = 1400,
+                ParkName = "Eldora",
 
-                });
-                resorts.Add(new Resort
-                {
-                    ResortId = 7,
-                    ResortCity = "Copper Mountain"
+            });
+            parks.Add(new Park
+            {
+                ResortId = 11,
+                Drop = 1000,
+                ParkName = "Granby Ranch",
 
-                });
-                resorts.Add(new Resort
-                {
-                    ResortId = 8,
-                    ResortCity = "Crested Butte"
+            });
 
-                });
-
-                resorts.Add(new Resort
-                {
-                    ResortId = 9,
-                    ResortCity = "Evergreen"
-
-                });
-
-                resorts.Add(new Resort
-                {
-                    ResortId = 10,
-                    ResortCity = "Nederland"
-
-                });
-
-                resorts.Add(new Resort
-                {
-                    ResortId = 11,
-                    ResortCity = "Granby"
-
-                });
-            }
         }
-    } 
+
+        public static void InitializeResorts()
+        {
+            resorts.Add(new Resort
+            {
+                ResortId = 1,
+                ResortCity = "Dillon"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 2,
+                ResortCity = "Aspen"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 3,
+                ResortCity = "Aspen"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 4,
+                ResortCity = "Beaver Creek"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 5,
+                ResortCity = "Breckenridge"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 6,
+                ResortCity = "Aspen"
+
+            });
+            resorts.Add(new Resort
+            {
+                ResortId = 7,
+                ResortCity = "Copper Mountain"
+
+            });
+            resorts.Add(new Resort
+            {
+                ResortId = 8,
+                ResortCity = "Crested Butte"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 9,
+                ResortCity = "Evergreen"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 10,
+                ResortCity = "Nederland"
+
+            });
+
+            resorts.Add(new Resort
+            {
+                ResortId = 11,
+                ResortCity = "Granby"
+
+            });
+        }
+    }
+}
