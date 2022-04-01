@@ -4,68 +4,18 @@
 // Description:      Return attributes from Colorado Ski Resort List
 // Last Modified:    April 2022
 //**************************************************
-////        //            //lines.Add("Resort,City,VD,Runs,Lifts")1;
-////        //            //lines.Add("Arapahoe Basin,Dillon, 2530,147,9")2;
-////        //            //lines.Add("Aspen Highlands,Aspen, 3635,117,5")3;
-////        //            //lines.Add("Aspen Mountain,Aspen, 3267,	76,	8")4;
-////        //            //lines.Add("Beaver Creek,Beaver Creek, 3340,150,23")5;
-////        //            //lines.Add("Breckenridge,Breckenridge, 3398,87,	34")6;
-////        //            //lines.Add("Buttermilk, Aspen,2030,44,8")7;
-////        //            //lines.Add("Copper Mountain,Copper Mountain,2738,140, 24")8;
-////        //            //lines.Add("Crested Butte,Crested Butte,2787,121,15")9;
-////        //            //lines.Add("Echo Mountain,Evergreen,600,13, 3,")10;
-////        //            //lines.Add("Eldora,Nederland,1400,63,10")11;
-////        //            //lines.Add("Granby Ranch,Granby,1000,35,6")12;
-////        //            //lines.Add("Hesperus,Hesperus,700,13,2,")13;
-////        //            //lines.Add("Howelsen,Steamboat Springs,440,17,1")14;
-////        //            //lines.Add("Kendall,Silverton,240,11,1")15;
-////        //            //lines.Add("Keystone,Keystone,3128,128,20")16;
-////        //            //lines.Add("Loveland,Dillon,2210,94,11")17;
-////        //            //lines.Add("Monarch,Salida,1170,54,5")18;
-////        //            //lines.Add("Powderhorn,Grand Junction,1650,50,4")19;
-////        //            //lines.Add("Purgatory,Durango,2029,105,12")20;
-////        //            //lines.Add("Silverton Mountain,Silverton,3087,69,1")21;
-////        //            //lines.Add("Ski Cooper,Leadville,1200,60,5")22;
-////        //            //lines.Add("Snowmass,Snowmass Village,4406,98,21")23;
-////        //            //lines.Add("Steamboat,Steamboat Springs,3668,169,18")24;
-////        //            //lines.Add("Sunlight,Glenwood Springs,2010,67,4")25;
-////        //            //lines.Add("Telluride,Telluride,3790,148,17");26
-////        //            //lines.Add("Vail,Vail,3450,195,31")27;
-////        //            //lines.Add("Winter Park,Winter Park,3060,166,23")28;
-////        //            //lines.Add("Wolf Creek,Pagosa Springs,1604,133,9")29;
-////        //            //lines.Add("END OF LIST!");
 
-////        //            //File.WriteAllLines(filePath, lines);
-
-////        //            List<Resort> resorts = new List<Resort>();
-////        //            List<string> lines = File.ReadAllLines(filePath).ToList();
-
-////        //            foreach (var line in lines)
-////        //            {
-////        //                string[] entries = line.Split(',');
-////        //                Resort newResort = new Resort();
-////        //                newResort.Name = entries[0];
-////        //                newResort.City = entries[1];
-////        //              //  newResort.Vd = entries[2];
-////        //                //  newResort.Runs = entries[3];
-////        //                //   newResort.Lifts = entries[4];
-////        //                resorts.Add(newResort);
-
-////        //            }
-////        //            foreach (var resort in resorts)
-////        //            {
-////        //                Console.WriteLine($"{resort.Name}, {resort.City}");
-////        //            }
-////        //            Console.ReadLine();
 
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ColoradoSKI
+
 {
     class Program
 
@@ -80,10 +30,12 @@ namespace ColoradoSKI
             InitializeParks();
             InitializeResorts();
 
+
             Console.WriteLine("█░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀   ▀█▀ █▀█   ▀█▀ █░█ █▀▀   █▀ █▄▀ █   ▄▀█ █▀█ █▀█");
             Console.WriteLine("▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄   ░█░ █▄█   ░█░ █▀█ ██▄   ▄█ █░█ █   █▀█ █▀▀ █▀▀");
 
             Console.WriteLine('\n');
+
 
             //SEARCH PARK NAME BY FIRST LETTER. Here we use USER INPUT
             {
@@ -91,8 +43,9 @@ namespace ColoradoSKI
                 bool result;
 
                 //input character 
-                Console.Write("Search Ski resort park names that start with capital letter: Enter letter here-->");
+                Console.Write("Search Ski resort park names(Enter capital letter A, B, C, E, or G)-->");
                 result = Char.TryParse(Console.ReadLine(), out ch);
+
 
                 //printing the input character
                 Console.WriteLine("result is: {0}", result);
@@ -100,6 +53,7 @@ namespace ColoradoSKI
 
                 //hit ENTER to exit the program
                 Console.ReadLine();
+
 
                 var queryLetter = from park in parks
                                   where park.ParkName.StartsWith(ch)
@@ -135,13 +89,13 @@ namespace ColoradoSKI
                                          select park.ParkName;
 
 
-                { 
-                Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀ █▀   ▄▀ ▄▀█ █░░ █▀█ █░█ ▄▀█ █▄▄ █▀▀ ▀█▀ █ █▀▀ ▄▀█ █░░ ▀▄");
-                Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░ ▄█   ▀▄ █▀█ █▄▄ █▀▀ █▀█ █▀█ █▄█ ██▄ ░█░ █ █▄▄ █▀█ █▄▄ ▄▀");
-                Console.WriteLine('\n');
-                foreach (var item in queryAlphabetOrder)
+                {
+                    Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀ █▀   ▄▀ ▄▀█ █░░ █▀█ █░█ ▄▀█ █▄▄ █▀▀ ▀█▀ █ █▀▀ ▄▀█ █░░ ▀▄");
+                    Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░ ▄█   ▀▄ █▀█ █▄▄ █▀▀ █▀█ █▀█ █▄█ ██▄ ░█░ █ █▄▄ █▀█ █▄▄ ▄▀");
+                    Console.WriteLine('\n');
+                    foreach (var item in queryAlphabetOrder)
 
-                Console.WriteLine(item);
+                        Console.WriteLine(item);
                 }
 
 
@@ -170,25 +124,31 @@ namespace ColoradoSKI
 
 
             }
+
+
             Console.WriteLine('\n');
 
             //Conversion from meters from feet
             Console.WriteLine("Now we have all these measurements, let's find out the meter conversion!");
             double meter, feet;
             Console.WriteLine("Enter feet :");
+
             feet = Convert.ToInt32(Console.ReadLine());
             meter = feet / 3.2808399;
-            Console.WriteLine("Now you're ready for European ski resorts ^_^"+"\nFeet to meter : " + meter);
+            Console.WriteLine("Now you're ready for European ski resorts ^_^" + "\nFeet to meter : " + meter);
             Console.WriteLine("Press enter to continue");
             Console.ReadKey();
+
+
+
 
             //Here is the first 6 of resorts
             Console.WriteLine('\n');
             Console.WriteLine('\n');
             var queryRandom = (from resort in resorts
-                                 select resort).Take(6);
+                               select resort).Take(8);
 
-            Console.WriteLine("Here's the top resorts");
+            Console.WriteLine("Here's the top resort cities");
             foreach (var item in queryRandom)
             {
                 Console.WriteLine(item.ResortCity);
@@ -214,9 +174,30 @@ namespace ColoradoSKI
                 Console.WriteLine(item.ParkName + ":" + item.ResortCity);
             }
 
+            {
 
+                //Write files to external text file
+                string[] lines = { "Here are the remaining resorts: Hesperus, Howelsen,Steamboat Springs,440/ Kendall,Silverton,240/Keystone,Keystone,3128/Loveland,Dillon,2210 " +
+                        "Monarch,Salida,1170/Powderhorn,Grand Junction,1650/Purgatory,Durango,2029 " +
+                        "/Silverton Mountain,Silverton,3087/Ski Cooper,Leadville,1200/Snowmass,Snowmass Village,4406"+
+                 "Steamboat,Steamboat Springs,3668/Sunlight,Glenwood Springs,2010/Telluride,Telluride,3790/Vail,Vail,3450"+
+                 "Winter Park,Winter Park,3060/Wolf Creek,Pagosa Springs,1604"+"END OF LIST! "};
+
+                try
+                {
+                    System.IO.File.WriteAllLines(@"D:\lines.txt", lines);
+                    
+                    Console.WriteLine("Lines written to file successfully. You have exited the program");
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err.Message);
+                }
+            }
 
         }
+
+
         ///////LIST OF ALL SKI RESORTS AND THEIR ATTRIBUTES///////
 
         public static void InitializeParks()
