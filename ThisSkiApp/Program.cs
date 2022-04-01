@@ -68,18 +68,24 @@ using System.Threading.Tasks;
 namespace ColoradoSKI
 {
     class Program
+
     {
         public static List<Park> parks = new List<Park>();
         public static List<Resort> resorts = new List<Resort>();
 
 
 
-       public     static void Main(string[] args)
+       public static void Main(string[] args)
             {
                 InitializeParks();
                 InitializeResorts();
-             Console.WriteLine("Welcome to the SKI APP");
-            //SEARCH PARK NAME BY FIRST LETTER. Here we use "A"
+
+            Console.WriteLine("█░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀   ▀█▀ █▀█   ▀█▀ █░█ █▀▀   █▀ █▄▀ █   ▄▀█ █▀█ █▀█");
+            Console.WriteLine("▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄   ░█░ █▄█   ░█░ █▀█ ██▄   ▄█ █░█ █   █▀█ █▀▀ █▀▀");
+
+            Console.WriteLine('\n');
+
+            //SEARCH PARK NAME BY FIRST LETTER. Here we use USER INPUT
             {
                 char ch;
                 bool result;
@@ -111,7 +117,8 @@ namespace ColoradoSKI
             }
                 Console.WriteLine("*********************");
                 Console.WriteLine('\n');
-
+            
+         
             //ALPHABETICAL ORDER OF SKI RESORTS
             var queryAlphabetOrder = from park in parks
                                          orderby park.ParkName
@@ -119,7 +126,8 @@ namespace ColoradoSKI
 
 
 
-                Console.WriteLine("Here is an alphabetical list of resorts:");
+                Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀ █▀   ▄▀ ▄▀█ █░░ █▀█ █░█ ▄▀█ █▄▄ █▀▀ ▀█▀ █ █▀▀ ▄▀█ █░░ ▀▄");
+                Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░ ▄█   ▀▄ █▀█ █▄▄ █▀▀ █▀█ █▀█ █▄█ ██▄ ░█░ █ █▄▄ █▀█ █▄▄ ▄▀");
                 Console.WriteLine('\n');
                 foreach (var item in queryAlphabetOrder)
                 {
@@ -129,13 +137,14 @@ namespace ColoradoSKI
 
                 Console.WriteLine('\n');
 
-                //ORDER BY increasing vertical distance (feet)
+        //ORDER BY increasing vertical distance (feet)
 
                 var queryDrop = from park in parks
                                 orderby park.Drop, park.ParkName descending
                                 select park;
 
-                Console.WriteLine("Here the resorts go higher and higher as you scroll down");
+            Console.WriteLine("█░█ █▀▀ █▀█ ▀█▀ █ █▀▀ ▄▀█ █░░   █▀▄ █▀█ █▀█ █▀█");
+            Console.WriteLine("▀▄▀ ██▄ █▀▄ ░█░ █ █▄▄ █▀█ █▄▄   █▄▀ █▀▄ █▄█ █▀▀");
                 Console.WriteLine('\n');
                 foreach (var item in queryDrop)
                 {
@@ -159,14 +168,17 @@ namespace ColoradoSKI
 
                 Console.WriteLine('\n');
 
-                //CONNECT RESORT AND PARK CLASSES
+        //CONNECT RESORT AND PARK CLASSES
                 var queryResortAndCity = from park in parks
                                          join resort in resorts on park.ResortId equals resort.ResortId
                                          select new { park.ParkName, resort.ResortCity };
 
 
-                Console.WriteLine("**********************************");
-                Console.WriteLine("Here are the Ski Resorts with their locations:");
+            Console.WriteLine('\n');
+
+            Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀   █░░ █▀█ █▀▀ ▄▀█ ▀█▀ █ █▀█ █▄░█ █▀");
+            Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░   █▄▄ █▄█ █▄▄ █▀█ ░█░ █ █▄█ █░▀█ ▄█");
+
                 foreach (var item in queryResortAndCity)
                 {
                     Console.WriteLine(item.ParkName + ":" + item.ResortCity);
@@ -175,9 +187,9 @@ namespace ColoradoSKI
 
 
             }
-            ///////LIST OF ALL SKI RESORTS AND THEIR ATTRIBUTES
+        ///////LIST OF ALL SKI RESORTS AND THEIR ATTRIBUTES///////
 
-            public static void InitializeParks()
+        public static void InitializeParks()
             {
                 parks.Add(new Park
                 {
