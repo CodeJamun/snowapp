@@ -4,7 +4,7 @@ Users can search for Colorado Ski Resorts based on Name and can find out how hig
 
 Features: 
 
-I created Resort and Park class that populates objects with the attributes Resort Name, ID, and Vertical Distance.  At the end of the program there is a log that record misc resorts that were not used in the program to an external text file on the user's D drive.   Several LINQ queries were used to populate data from the list of objects such as by letter or by distance.  There is also a conversion tool that converts feet to meters for those who are interested in European metrics. In the future, there would be a master loop with a weather API. 
+I created Resort and Park class that populates objects with the attributes Resort Name, ID, and Vertical Distance.  At the end of the program there is a log that record misc resorts that were not used in the program to an external text file on the user's D drive.   Several LINQ queries were used to populate data from the list of objects such as by letter or by distance.  There is also a conversion tool that converts feet to meters for those who are interested in European metrics. In the future, there would be a master loop with a weather API. Please ignore the LINQQuery and MENU files as they accidentally got uploaded.
 
 Made in Visual Studio on MAC
 ex. Windows 10
