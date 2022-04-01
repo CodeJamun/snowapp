@@ -78,30 +78,30 @@ namespace ColoradoSKI
             {
                 InitializeParks();
                 InitializeResorts();
-
+             Console.WriteLine("Welcome to the SKI APP");
             //SEARCH PARK NAME BY FIRST LETTER. Here we use "A"
             {
                 char ch;
                 bool result;
 
                 //input character 
-                Console.Write("Enter a character: ");
+                Console.Write("Search Ski resort park names that start with capital letter: Enter letter here-->");
                 result = Char.TryParse(Console.ReadLine(), out ch);
 
                 //printing the input character
                 Console.WriteLine("result is: {0}", result);
-                Console.WriteLine("Input character is {0}", ch);
+                Console.WriteLine("You picked the letter {0}. Please press enter to continue", ch);
 
                 //hit ENTER to exit the program
                 Console.ReadLine();
 
                 var queryLetter = from park in parks
-                                  where park.ParkName.StartsWith(result)
-
+                                  where park.ParkName.StartsWith(ch)
                                   select park.ParkName;
-                
 
-                Console.WriteLine("HERE ARE SKI RESORTS THAT BEGIN WITH {}", ch);
+
+
+                Console.WriteLine("HERE ARE SKI RESORTS THAT BEGIN WITH {0}", ch);
                 Console.WriteLine('\n');
 
                 foreach (var item in queryLetter)
@@ -109,10 +109,11 @@ namespace ColoradoSKI
                     Console.WriteLine(item);
                 }
             }
+                Console.WriteLine("*********************");
                 Console.WriteLine('\n');
 
-                //ALPHABETICAL ORDER OF SKI RESORTS
-                var queryAlphabetOrder = from park in parks
+            //ALPHABETICAL ORDER OF SKI RESORTS
+            var queryAlphabetOrder = from park in parks
                                          orderby park.ParkName
                                          select park.ParkName;
 
