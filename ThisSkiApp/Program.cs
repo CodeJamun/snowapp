@@ -76,11 +76,11 @@ namespace ColoradoSKI
 
             //ALPHABETICAL ORDER OF SKI RESORTS
 
-            Console.WriteLine("Press 'y' if you would like an alphabetical list of resorts!");
+            Console.WriteLine("Press 'y' if you would like an alphabetical list of resorts! Press 'n' if you would like to exit the app");
 
-            ConsoleKeyInfo cki = Console.ReadKey();
+            ConsoleKeyInfo key1 = Console.ReadKey();
 
-            if (cki.Key.ToString() == "y")
+            if (key1.KeyChar.ToString() == "y")
 
             //USER PICKED YES FOR ALPHABETICAL LIST
             {
@@ -90,6 +90,7 @@ namespace ColoradoSKI
 
 
                 {
+                    Console.WriteLine('\n');
                     Console.WriteLine("█▀█ █▀▀ █▀ █▀█ █▀█ ▀█▀ █▀   ▄▀ ▄▀█ █░░ █▀█ █░█ ▄▀█ █▄▄ █▀▀ ▀█▀ █ █▀▀ ▄▀█ █░░ ▀▄");
                     Console.WriteLine("█▀▄ ██▄ ▄█ █▄█ █▀▄ ░█░ ▄█   ▀▄ █▀█ █▄▄ █▀▀ █▀█ █▀█ █▄█ ██▄ ░█░ █ █▄▄ █▀█ █▄▄ ▄▀");
                     Console.WriteLine('\n');
@@ -105,55 +106,99 @@ namespace ColoradoSKI
             else
             {
 
+                // Exit console app
                 Console.WriteLine('\n');
-                Console.WriteLine('\n');
-                Console.WriteLine("Oops-Something went wrong: so here's fun facts about how high the resorts go!");
-                //ORDER BY increasing vertical distance (feet)
 
-                var queryDrop = from park in parks
-                                orderby park.Drop, park.ParkName descending
-                                select park;
+                Console.WriteLine("You chose to exit the app.  Thanks for visiting the SkiApp");
+                System.Environment.Exit(1);
+            }
 
-                Console.WriteLine("█░█ █▀▀ █▀█ ▀█▀ █ █▀▀ ▄▀█ █░░   █▀▄ █▀█ █▀█ █▀█");
-                Console.WriteLine("▀▄▀ ██▄ █▀▄ ░█░ █ █▄▄ █▀█ █▄▄   █▄▀ █▀▄ █▄█ █▀▀");
-                Console.WriteLine('\n');
-                foreach (var item in queryDrop)
-                {
-                    Console.WriteLine(item.ParkName + ":" + item.Drop);
+            //ORDER BY increasing vertical distance (feet)
+
+            Console.WriteLine("Press 'y' if you would like a list of resorts with their vertical drop? Press 'n' if you would like to exit the app");
+
+            ConsoleKeyInfo key2 = Console.ReadKey();
+
+            if (key2.KeyChar.ToString() == "y")
+
+            //USER PICKED YES FOR VERTICAL DISTANCE
+            {
+                { 
+            
+                    Console.WriteLine('\n');
+                    Console.WriteLine("Here's fun facts about how high the resorts go!");
+                    //ORDER BY increasing vertical distance (feet)
+
+                    var queryDrop = from park in parks
+                                    orderby park.Drop, park.ParkName descending
+                                    select park;
+
+                    Console.WriteLine("█░█ █▀▀ █▀█ ▀█▀ █ █▀▀ ▄▀█ █░░   █▀▄ █▀█ █▀█ █▀█");
+                    Console.WriteLine("▀▄▀ ██▄ █▀▄ ░█░ █ █▄▄ █▀█ █▄▄   █▄▀ █▀▄ █▄█ █▀▀");
+                    Console.WriteLine('\n');
+                    foreach (var item in queryDrop)
+                    {
+                        Console.WriteLine(item.ParkName + ":" + item.Drop);
+                    }
+
+
                 }
 
 
+                Console.WriteLine('\n');
+
+
+
+                //Conversion from meters from feet
+                Console.WriteLine("Now we have all these measurements, let's find out the meter conversion!");
+                double meter, feet;
+                Console.WriteLine("Enter feet :");
+
+                feet = Convert.ToInt32(Console.ReadLine());
+                meter = feet / 3.2808399;
+                Console.WriteLine("Now you're ready for European ski resorts ^_^" + "\nFeet to meter : " + meter);
+                Console.WriteLine("Press enter to continue");
+                Console.ReadKey();
+
             }
+             else
+            {
 
+                // Exit console app
+                Console.WriteLine('\n');
 
-            Console.WriteLine('\n');
-
-            //Conversion from meters from feet
-            Console.WriteLine("Now we have all these measurements, let's find out the meter conversion!");
-            double meter, feet;
-            Console.WriteLine("Enter feet :");
-
-            feet = Convert.ToInt32(Console.ReadLine());
-            meter = feet / 3.2808399;
-            Console.WriteLine("Now you're ready for European ski resorts ^_^" + "\nFeet to meter : " + meter);
-            Console.WriteLine("Press enter to continue");
-            Console.ReadKey();
-
-
+                Console.WriteLine("You chose to exit the app.  Thanks for visiting the SkiApp");
+                System.Environment.Exit(1);
+            }
 
 
             //Here is the first 6 of resorts
-            Console.WriteLine('\n');
-            Console.WriteLine('\n');
-            var queryRandom = (from resort in resorts
-                               select resort).Take(8);
 
-            Console.WriteLine("Here's the top resort cities");
-            foreach (var item in queryRandom)
+            Console.WriteLine("Press 'y' if you would like a list of the first 5 resorts with their cities? Press 'n' if you would like to exit the app");
+
+            ConsoleKeyInfo key3 = Console.ReadKey();
+            if (key3.KeyChar.ToString() == "y")
             {
-                Console.WriteLine(item.ResortCity);
+                Console.WriteLine('\n');
+                Console.WriteLine('\n');
+                var queryRandom = (from resort in resorts
+                                   select resort).Take(5);
+
+                Console.WriteLine("Here's the top resort cities");
+                foreach (var item in queryRandom)
+                {
+                    Console.WriteLine(item.ResortCity);
+                }
             }
 
+            else
+            {
+                // Exit console app
+                Console.WriteLine('\n');
+
+                Console.WriteLine("You chose to exit the app.  Thanks for visiting the SkiApp");
+                System.Environment.Exit(1);
+            }
 
 
             Console.WriteLine('\n');
@@ -161,7 +206,7 @@ namespace ColoradoSKI
             //CONNECT RESORT AND PARK CLASSES
             var queryResortAndCity = from park in parks
                                      join resort in resorts on park.ResortId equals resort.ResortId
-                                     select new { park.ParkName, resort.ResortCity };
+                                     select new { park.ResortId, park.ParkName, resort.ResortCity };
 
 
             Console.WriteLine('\n');
@@ -186,8 +231,9 @@ namespace ColoradoSKI
                 try
                 {
                     System.IO.File.WriteAllLines(@"D:\lines.txt", lines);
-                    
-                    Console.WriteLine("Lines written to file successfully. You have exited the program");
+
+                    Console.WriteLine("You have saved an external file with the remaining resorts.  (Lines written to file successfully). Please check your D drive.");
+                    Console.WriteLine("You have exited the program");
                 }
                 catch (Exception err)
                 {
