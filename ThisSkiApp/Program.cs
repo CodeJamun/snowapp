@@ -174,7 +174,7 @@ namespace ColoradoSKI
 
             //Here is the first 6 of resorts
 
-            Console.WriteLine("Press 'y' if you would like a list of the first 5 resorts with their cities? Press 'n' if you would like to exit the app");
+            Console.WriteLine("Press 'y' if you would like a list of the first 6 resorts with their cities? Press 'n' if you would like to exit the app");
 
             ConsoleKeyInfo key3 = Console.ReadKey();
             if (key3.KeyChar.ToString() == "y")
@@ -182,7 +182,7 @@ namespace ColoradoSKI
                 Console.WriteLine('\n');
                 Console.WriteLine('\n');
                 var queryRandom = (from resort in resorts
-                                   select resort).Take(5);
+                                   select resort).Take(6);
 
                 Console.WriteLine("Here's the top resort cities");
                 foreach (var item in queryRandom)
